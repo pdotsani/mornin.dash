@@ -1,3 +1,5 @@
+'use strict';
+
 // var Dispatcher = require('../core/Dispatcher');
 // var Constants = require('../constants/Constants');
 // var Promise = require('es6-promise').Promise; // jshint ignore:line

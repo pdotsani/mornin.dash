@@ -1,5 +1,7 @@
 'use strict';
 
+'use strict';
+
 var React = require('react');
 
 var Timer = React.createClass({

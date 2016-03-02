@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = {
 
 	// Globals
@@ -7,7 +9,8 @@ module.exports = {
 	// ip-api.com API
 	IP_API_URL: 'http://ip-api.com/json',
 	// Open Weather Map API
-	OW_API_URL: 'http://api.openweathermap.org/data/2.5/forecast/',
-  OW_API_KEY: '9750d6280c288a69957681a3762ed63d'
+	OW_API_URL: 'http://api.openweathermap.org/data/2.5/forecast/city',
+  OW_API_KEY: '9750d6280c288a69957681a3762ed63d',
+  OW_CITIES_JSON: './city.list.json'
 
 };

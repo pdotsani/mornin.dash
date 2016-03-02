@@ -3,3 +3,6 @@
 .sass-cache/
 /bower_components/
 app/bower_components/
+
+# JSON file of city ids, find a way to get via CDN?
+app/scripts/services/city.list.json
