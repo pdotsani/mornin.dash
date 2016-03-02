@@ -9,13 +9,15 @@
     "babelify": "^6.4.0",
     "es6-promise": "^3.1.2",
     "flux": "^2.1.1",
-    "jsonfile": "^2.2.3",
+    "forecast.io-bluebird": "0.0.1",
+    "fs": "0.0.2",
     "keymirror": "^0.1.1",
     "object-assign": "^4.0.1",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
     "resolve": "^1.1.7",
-    "superagent": "^1.8.0-beta.1"
+    "superagent": "^1.8.0-beta.1",
+    "util": "^0.10.3"
   },
   "devDependencies": {
     "browserify": "latest",
