@@ -15,12 +15,20 @@ var Component = React.createClass({displayName: 'DataBox',
 	},
 
   componentDidMount: function() {
+    /**
+    *
+    * Will execute a 3 step asynch function chain,
+    * first getting ip info, then getting weather,
+    * then allowing data to be available on Component
+    *
+    */ 
     var ipInfo;
     var fioInfo;
     var forecast = new Forecast({
       key: C.FORECAST_IO_API
     });
 
+    // Step 2: Get forecast data via forecast.io
     var getForecast = function(data) {
       ipInfo = data;
       console.dir(ipInfo, null);  // Test console
@@ -29,6 +37,7 @@ var Component = React.createClass({displayName: 'DataBox',
         .then(bindData);
     };
 
+    // Step 3: Set state vars to be injected into element
     var bindData = function(data) {
       console.dir(data, null); // Test console
       fioInfo = data;
@@ -38,6 +47,7 @@ var Component = React.createClass({displayName: 'DataBox',
         });
     }.bind(this);
 
+    // Step 1: Get location via ip-api.com
     this.serverRequest = IpApi
       .get()
       .then(getForecast);  

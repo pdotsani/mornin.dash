@@ -2,10 +2,6 @@
 
 module.exports = {
 
-	// Globals
-	// ON_LOAD: 'ON_LOAD',
-	// ON_LOAD_ERROR: 'ON_LOAD_ERROR',
-
 	// ip-api.com API
 	IP_API_URL: 'http://ip-api.com/json',
 	// Forecast.io API

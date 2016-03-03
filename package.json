@@ -12,6 +12,7 @@
     "forecast.io-bluebird": "0.0.1",
     "fs": "0.0.2",
     "keymirror": "^0.1.1",
+    "moment": "^2.11.2",
     "object-assign": "^4.0.1",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
