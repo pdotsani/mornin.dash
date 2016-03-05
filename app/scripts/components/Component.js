@@ -5,7 +5,9 @@ var IpApi = require('../services/IpApi');
 var Forecast = require('forecast.io-bluebird');
 var C = require('../constants/Constants');
 
-var Component = React.createClass({displayName: 'DataBox',
+var Component = React.createClass({
+  
+  displayName: 'DataBox',
 
 	getInitialState: function() {
 	  return {
@@ -59,11 +61,8 @@ var Component = React.createClass({displayName: 'DataBox',
 
   render: function() {
     return (
-      React.createElement('p', {className: "DataBox"},
-        "Hello, world! I am a DataBox!." + 
-        JSON.stringify(this.state.ip) + " " + JSON.stringify(this.state.weather)
-      )
-    );
+      <p>Hello, world! I am a DataBox!. JSON.stringify({this.state.ip}) JSON.stringify({this.state.weather})</p>
+    )
   }
 });
 

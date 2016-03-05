@@ -3,7 +3,9 @@
 var React = require('react');
 var Moment = require('moment');
 
-var Time = React.createClass({displayName: 'DateTimeBox',
+var Time = React.createClass({
+
+  displayName: 'DateTimeBox',
 
 	getInitialState: function() {
 	  return {
@@ -29,11 +31,8 @@ var Time = React.createClass({displayName: 'DateTimeBox',
 
   render: function() {
     return (
-      React.createElement('p', {className: "DateTimeBox"},
-        "Hello, world! I am a TimeBox!.\n" + 
-        this.state.date + " " +this.state.time
-      )
-    );
+      <p>Hello, world! I am a TimeBox!. {this.state.date} {this.state.time}</p>
+    )
   }
 });
 
