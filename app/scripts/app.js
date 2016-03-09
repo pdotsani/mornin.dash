@@ -2,9 +2,9 @@
 
 var React = require('react');
 var ReactDOM = require('react-dom');
-var Time = require('./components/DateTime');
+var routes = require('./config/routes');
 
 ReactDOM.render(
-  <Time />,
+  routes,
   document.getElementById('app')
 );

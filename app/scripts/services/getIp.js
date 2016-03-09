@@ -5,10 +5,10 @@ var Promise = require('es6-promise').Promise; // jshint ignore:line
 var C = require('../constants/Constants');
 
 /**
- * Wrapper for calling ipApi.com API
+ * Wrapper for calling ipApi.com API and forecast.io
  */
-var IpApi = {
-  get: function () {
+var getIp = {
+  now: function() {
     return new Promise(function (resolve, reject) {
       Request
         .get(C.IP_API_URL)
@@ -20,4 +20,4 @@ var IpApi = {
   }
 };
 
-module.exports = IpApi;
+module.exports = getIp;

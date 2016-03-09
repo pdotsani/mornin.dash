@@ -16,6 +16,7 @@
     "object-assign": "^4.0.1",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
+    "react-router": "^2.0.0",
     "resolve": "^1.1.7",
     "superagent": "^1.8.0-beta.1",
     "util": "^0.10.3"
