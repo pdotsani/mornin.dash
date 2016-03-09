@@ -4,15 +4,15 @@ var React = require('react');
 var PropTypes = React.PropTypes;
 
 function puke(obj) {
-	return <pre>{JSON.stringify(obj, null, '\n')}</pre>
+	return <pre style={{width:'300px'}}>{JSON.stringify(obj, null, '\n')}</pre>
 }
 
 function Weather(props) {
 	return (
 		<div>
 			<pre>{props.city}, {props.country}, {props.region}</pre>
-			<pre>{puke(props.currently)}</pre>
-			<pre>{puke(props.daily)}</pre>
+			{puke(props.currently)}
+			{puke(props.daily)}
 		</div>
 	)
 }

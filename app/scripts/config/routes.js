@@ -1,3 +1,5 @@
+'use strict';
+
 var React = require('react');
 var ReactRouter = require('react-router');
 
@@ -7,6 +9,7 @@ var Route = ReactRouter.Route;
 var IndexRoute = ReactRouter.IndexRoute; 
 var hashHistory = ReactRouter.hashHistory; 
 
+// Route Components / containers
 var Main = require('../components/Main');
 var Loading = require('../components/Loading');
 var DefaultContainer = require('../containers/DefaultContainer');
