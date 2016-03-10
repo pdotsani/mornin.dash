@@ -4,16 +4,16 @@ var React = require('react');
 var PropTypes = React.PropTypes;
 
 function puke(obj) {
-	return <pre style={{width:'300px'}}>{JSON.stringify(obj, null, '\n')}</pre>
+	return <li>{JSON.stringify(obj, 2, ' ')}</li>
 }
 
 function Weather(props) {
 	return (
-		<div>
-			<pre>{props.city}, {props.country}, {props.region}</pre>
-			{puke(props.currently)}
-			{puke(props.daily)}
-		</div>
+			<ul style={{listStyle:'none',padding:'0',margin:'0'}}>
+				<li>{props.city}, {props.country}, {props.region}</li>
+				{puke(props.currently)}
+				{puke(props.daily)}
+			</ul>
 	)
 }
 

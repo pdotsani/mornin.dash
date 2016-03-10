@@ -2,9 +2,17 @@
 
 var React = require('react');
 
+var styles = {
+	time: {
+		margin: '0',
+		fontSize: '9em',
+		color: 'black'
+	}
+};
+
 function TimeComponent(info) {
 	return (
-		<h1>{info.data}</h1>
+		<h1 style={styles.time}>{info.data}</h1>
 	)
 }
 

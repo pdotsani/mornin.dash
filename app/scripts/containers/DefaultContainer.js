@@ -16,6 +16,18 @@ var forecast = new Forecast({
     key: C.FORECAST_IO_API
 });
 
+var styles = {
+  containerStyles: {
+    display: 'inline-flex',
+    flexDirection: 'row',
+    alignContent: 'center',
+    alignItems: 'flex-start',
+    paddingLeft:'24px',
+    paddingRight:'24px',
+    paddingBottom: '25px'
+  }
+}
+
 var DefaultContainer = React.createClass({
 
   contextTypes: {
@@ -90,20 +102,31 @@ var DefaultContainer = React.createClass({
 
   render: function() {
     return (
-      <div>
-        <TimeComponent
-          isDataLoaded={this.state.isDataLoaded}
-          data={this.state.time} />
-        <DateComponent
-          isDataLoaded={this.state.isDataLoaded}
-          data={this.state.date} />
-        <Weather
-          isDataLoaded={this.state.isDataLoaded}
-          city={this.state.city}
-          country={this.state.country}
-          region={this.state.region}
-          currently={this.state.currently}
-          daily={this.state.daily} />
+      <div style={styles.containerStyles}>
+        <div style={{
+          paddingTop: '80px',
+          minWidth:'750px',
+          display:'flex',
+          flexDirection:'column'}}>
+          <TimeComponent
+            isDataLoaded={this.state.isDataLoaded}
+            data={this.state.time} />
+          <DateComponent
+            isDataLoaded={this.state.isDataLoaded}
+            data={this.state.date} />
+        </div>
+        <div style={{
+          maxWidth:'350px',
+          display:'flex',
+          flexDirection:'column'}}>
+          <Weather 
+            isDataLoaded={this.state.isDataLoaded}
+            city={this.state.city}
+            country={this.state.country}
+            region={this.state.region}
+            currently={this.state.currently}
+            daily={this.state.daily} />
+        </div>
       </div>
     )
   }
