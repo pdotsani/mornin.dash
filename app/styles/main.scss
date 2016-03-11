@@ -5,23 +5,25 @@ body {
   background: white;
   font-family: Arial;
   color: #333;
-  /* DISABLE SELECT ON WHOLE BODY: */
+  // Disable select on whole body
   -webkit-touch-callout: none; /* iOS Safari */
   -webkit-user-select: none;   /* Chrome/Safari/Opera */
   -khtml-user-select: none;    /* Konqueror */
   -moz-user-select: none;      /* Firefox */
   -ms-user-select: none;       /* IE/Edge */
-}
+};
 
 /* IONICON HELPER CLASSES */
+.size-12 { font-size: 12px; };
+.size-14 { font-size: 14px; };
+.size-16 { font-size: 16px; };
+.size-18 { font-size: 18px; };
+.size-21 { font-size: 21px; };
+.size-24 { font-size: 24px; };
+.size-32 { font-size: 32px; };
+.size-48 { font-size: 48px; };
+.size-64 { font-size: 64px; };
+.size-96 { font-size: 96px; };
 
-.size-12 { font-size: 12px; }
-.size-14 { font-size: 14px; }
-.size-16 { font-size: 16px; }
-.size-18 { font-size: 18px; }
-.size-21 { font-size: 21px; }
-.size-24 { font-size: 24px; }
-.size-32 { font-size: 32px; }
-.size-48 { font-size: 48px; }
-.size-64 { font-size: 64px; }
-.size-96 { font-size: 96px; }
+/* ICON FUNCTIONALITY */
+i:hover { cursor: pointer; };

@@ -3,19 +3,35 @@
 var React = require('react');
 var PropTypes = React.PropTypes;
 
+
+var styles = {
+	listDiv: {
+		listStyle:'none',
+		padding:'0',
+		margin:'0',
+		display: 'flex',
+		flexDirection: 'column'
+	},
+	listItem: {
+		padding: '0',
+		margin: '0',
+		maxHeight: '250px'
+	}
+}
+
 function puke(obj) {
-	return <li>{JSON.stringify(obj, 2, ' ')}</li>
+	return <li style={styles.listItem}>{JSON.stringify(obj, 2, ' ')}</li>
 }
 
 function Weather(props) {
 	return (
-			<ul style={{listStyle:'none',padding:'0',margin:'0'}}>
-				<li>{props.city}, {props.country}, {props.region}</li>
+			<ul style={styles.listDiv}>
+				<li style={styles.listItem}>{props.city}, {props.country}, {props.region}</li>
 				{puke(props.currently)}
 				{puke(props.daily)}
 			</ul>
 	)
-}
+};
 
 Weather.contextTypes = {
   router: React.PropTypes.object.isRequired,

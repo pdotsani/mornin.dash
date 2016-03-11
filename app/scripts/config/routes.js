@@ -18,10 +18,7 @@ var DefaultContainer = require('../containers/DefaultContainer');
 var routes = (
 	<Router history={hashHistory}>
 		<Route path='/' component={Main}>
-			<IndexRoute component={Loading} />
-			<Route 
-				path='default'
-				component={DefaultContainer} />
+			<IndexRoute component={DefaultContainer} />
 		</Route>
 	</Router>
 );

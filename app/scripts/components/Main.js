@@ -22,6 +22,7 @@ var Main = React.createClass({
 	render: function() {
 		return (
 			<div style={styles.mainDiv}>
+				// Possibly find a way to load menu bar after theme loads?
 				<div style={styles.menuBar}>
 					<i className="icon ion-android-menu size-64"></i>
 				</div>

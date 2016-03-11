@@ -1,0 +1,111 @@
+@font-face {
+    font-family: 'icomoon';
+    src:    url('fonts/icomoon.eot?6tg8kr');
+    src:    url('fonts/icomoon.eot?6tg8kr#iefix') format('embedded-opentype'),
+        url('fonts/icomoon.ttf?6tg8kr') format('truetype'),
+        url('fonts/icomoon.woff?6tg8kr') format('woff'),
+        url('fonts/icomoon.svg?6tg8kr#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: 'icomoon' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-WEATHER_HAIL-DAY:before {
+    content: "\e900";
+}
+.icon-WEATHER_HAIL-NIGHT:before {
+    content: "\e901";
+}
+.icon-WEATHER_HAIL:before {
+    content: "\e902";
+}
+.icon-WEATHER_TORNADO:before {
+    content: "\e903";
+}
+.icon-WEATHER_THUNDER-001:before {
+    content: "\e904";
+}
+.icon-WEATHER_THUNDER-DAY:before {
+    content: "\e905";
+}
+.icon-WEATHER_THUNDER:before {
+    content: "\e906";
+}
+.icon-WEATHER_FOG-DAY:before {
+    content: "\e907";
+}
+.icon-WEATHER_FOG-NIGHT:before {
+    content: "\e908";
+}
+.icon-WEATHER_FOG:before {
+    content: "\e909";
+}
+.icon-WEATHER_CLOUDY-001:before {
+    content: "\e90a";
+}
+.icon-WEATHER_WINDY-001:before {
+    content: "\e90b";
+}
+.icon-WEATHER_WINDY:before {
+    content: "\e90c";
+}
+.icon-WEATHER_CLOUDY:before {
+    content: "\e90d";
+}
+.icon-WEATHER_SLEET-DAY:before {
+    content: "\e90e";
+}
+.icon-WEATHER_SLEET-NIGHT:before {
+    content: "\e90f";
+}
+.icon-WEATHER_SLEET:before {
+    content: "\e910";
+}
+.icon-WEATHER_SNOW-DAY:before {
+    content: "\e911";
+}
+.icon-WEATHER_SNOW-NIGHT:before {
+    content: "\e912";
+}
+.icon-WEATHER_SNOW:before {
+    content: "\e913";
+}
+.icon-WEATHER_RAIN-DAY:before {
+    content: "\e914";
+}
+.icon-WEATHER_RAIN-NIGHT:before {
+    content: "\e915";
+}
+.icon-WEATHER_RAIN:before {
+    content: "\e916";
+}
+.icon-WEATHER_PARTLYCLOUDYNIGHT:before {
+    content: "\e917";
+}
+.icon-WEATHER_PARTLYCLOUDY:before {
+    content: "\e918";
+}
+.icon-WEATHER_PARTYCLOUDY-DAY:before {
+    content: "\e919";
+}
+.icon-WEATHER_NIGHT:before {
+    content: "\e91a";
+}
+.icon-WEATHER_DAY:before {
+    content: "\e91b";
+}
+

@@ -5,7 +5,7 @@ var Promise = require('es6-promise').Promise; // jshint ignore:line
 var C = require('../constants/Constants');
 
 /**
- * Wrapper for calling ipApi.com API and forecast.io
+ * Wrapper for calling ipApi.com json file
  */
 var getIp = {
   now: function() {
