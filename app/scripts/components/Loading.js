@@ -3,19 +3,20 @@
 var React = require('react');
 var PropTypes = React.PropTypes;
 var Router = require('react-router');
-// var Transition = require('react-addons-css-transition-group'); // disable for now...
+// disable for now...
+// var Transition = require('react-addons-css-transition-group'); 
 var _ = require('lodash');
 
 var styles = {
 	loadingContainer: {
-		display: 'flex',
+		background: 'transparent'
 	},
 	loadingHeader: {
-		margin: 'auto'
-	},
-	zoom: {
-		fontSize: '1.5em'
-	}	
+		fontSize: '6em',
+		marginTop: '200px',
+		transition: 'fontWeight 700',
+	  textAlign: 'center',
+	}
 };
 
 var Loading = React.createClass({
@@ -23,7 +24,7 @@ var Loading = React.createClass({
 	contextTypes: {
 	  router: React.PropTypes.object.isRequired,
 	  message: React.PropTypes.array,
-	  time: PropTypes.number
+	  time: React.PropTypes.number
 	},
 
 	renderMessage: function() {
@@ -32,23 +33,17 @@ var Loading = React.createClass({
 		});
 	},
 
-	// disabled for now... 
-	// zoomLetter: function() {
-	// 	var index = Math.floor(Math.random()*(this.length-1));
-	// 	console.log('arrValue: ', messageArr[index]);
-	// },
-
-	randomTime: function() {
-		return Math
-			.floor(Math
-			.random()*
-			(this.state.time/messageArr.length));
+	zoomLetter: function() {
+		var index = Math.floor(Math.random()*(this.length-1));
+		var luckySpan = this.messageArr[index];
+		luckySpan.style.fontWeight='100';
+		luckySpan.style.fontWeight='10000';
 	},
 
 	componentWillMount: function() {
 		this.setState({
 			message: 'loading'.split(''),
-			time: 5000
+			time: 100
 		});
 	},
 
@@ -56,11 +51,11 @@ var Loading = React.createClass({
 		this.header = document.body.getElementsByTagName('h1')[0];
 		this.messageArr = this.header.childNodes;
 		this.length = this.messageArr.length;
-		// this.state = setInterval(this.zoomLetter, this.randomTime); // disable for now...
+		this.interval = setInterval(this.zoomLetter, this.state.time);
 	},
 
 	componentWillUnmount: function() {
-		clearInterval(this.state);
+		clearInterval(this.interval);
 	},
 
 	render: function() {

@@ -12,6 +12,7 @@ var TimeComponent = require('../components/TimeComponent');
 var DateComponent = require('../components/DateComponent');
 var Weather = require('../components/Weather');
 var Loading = require('../components/Loading');
+var Navbar = require('../components/Navbar');
 
 var forecast = new Forecast({
     key: C.FORECAST_IO_API
@@ -118,6 +119,7 @@ var DefaultContainer = React.createClass({
       this.state.isLoaded === false
       ? <Loading />
       : <div style={styles.containerStyles}>
+          <Navbar />
           <div style={styles.dateTimeContainer}>
             <TimeComponent
               data={this.state.time} />
