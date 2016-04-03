@@ -12,7 +12,7 @@ This project is in development. In it's current state, it can only be viewed as 
 
 This project is currently private. If you think someone might like to help out, please contact me.  
 
-## Development Enviornment Setup
+## Setup
 
 Here are some steps to set up your local enviornment prior to contributing to the project.
 
@@ -48,7 +48,7 @@ If you aren't redirected, open `http://localhost:3000/` in chrome.
 
 *When you're done working on the app, it's best to deactivate COORS toggle for security reasons.*
 
-## Development Workflow  
+## Workflow  
 
 Now that you have mornin.dash running locally on your system. You can start contributing! The general workfow is as follows:  
 
