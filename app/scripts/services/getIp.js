@@ -11,7 +11,7 @@ var getIp = {
   now: function() {
     return new Promise(function (resolve, reject) {
       Request
-        .get(C.IP_API_URL)
+        .get('http://ip-api.com/json')
         .end(function (err, res) {
           if(err) reject();
           resolve(JSON.parse(res.text));

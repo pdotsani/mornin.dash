@@ -14,9 +14,13 @@ var Weather = require('../components/Weather');
 var Loading = require('../components/Loading');
 var Navbar = require('../components/Navbar');
 
+// Insert this into callback, possibly linked with a promise...
 var forecast = new Forecast({
     key: C.FORECAST_IO_API
 });
+
+// Firebase
+var Firebase = require('firebase');
 
 var styles = {
   containerStyles: {
@@ -71,10 +75,12 @@ var DefaultContainer = React.createClass({
 
   componentWillMount: function() {
     /* 
-     *  3 Step process to get location and weather data 
+     *  3 Step process to get location and weather data
+     *  this state needs to be refactored into one api down the road...
      */
     var ipInfo;
     var weatherInfo;
+    var loginRef = new Firebase(C.FIREBASE_URL);
 
     // Step 2: Using ipinfo data, get weather data
     var getWeather = function(data) {
@@ -101,12 +107,23 @@ var DefaultContainer = React.createClass({
     }.bind(this);
 
     // Step 1: Get location information
-    this.serverRequest = getIp
-      .now()
-      .then(getWeather)
-      .catch(function(err) {
-        console.warn(err);
-      });
+    var getIpInfo = function() {
+      this.serverRequest = getIp
+        .now()
+        .then(getWeather)
+        .catch(function(err) {
+          console.warn(err);
+        });
+    }.bind(this);
+
+    // Anonymous loginRef to firebase
+    loginRef.authAnonymously(function(error, auth) { 
+        if(error) console.error(error);
+        console.log('auth:', auth);
+        getIpInfo();
+      }, {
+        remember: "sessionOnly"
+    });
   },
 
   componentDidMount: function() {

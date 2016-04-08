@@ -8,6 +8,7 @@
     "babel-preset-react": "^6.5.0",
     "babelify": "^6.4.0",
     "es6-promise": "^3.1.2",
+    "firebase": "^2.4.2",
     "flux": "^2.1.1",
     "forecast.io-bluebird": "0.0.1",
     "fs": "0.0.2",
