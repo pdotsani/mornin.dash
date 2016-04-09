@@ -35,7 +35,8 @@ var styles = {
     flexDirection:'column'
   },
   weatherContainer: {
-    maxWidth:'350px',
+    paddingTop: '80px',
+    width:'350px',
     display:'flex',
     flexDirection:'column'
   }
