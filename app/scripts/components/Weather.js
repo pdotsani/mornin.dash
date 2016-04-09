@@ -19,18 +19,29 @@ var styles = {
 	}
 }
 
-function puke(obj) {
-	return <li style={styles.listItem}>{JSON.stringify(obj, 2, ' ')}</li>
-}
-
 function Weather(props) {
 	return (
-			<ul style={styles.listDiv}>
-				<li style={styles.listItem}>{props.city}, {props.country}, {props.region}</li>
-				{puke(props.currently)}
-				{puke(props.daily)}
-			</ul>
-	)
+      <ul style={styles.listDiv}>
+    	{   
+    		props.fiveDays.map(function(ele,i){
+    			return (
+    				<li style={styles.listItem} key={i}> 
+    			 		<div style={styles.listChild_1}>
+								<span style={styles.icon} className="icon-WEATHER_CLOUDY"> </span>
+								<span style={styles.listChild_1_inner}>
+    							<span style={styles.day}> {ele.day}</span>
+    							<span> {ele.summary }</span> 
+    						</span>
+    					</div>
+    					<div>
+    					  {ele.maxTemp} <sup>&#8457;</sup> / {ele.minTemp } <sup>&#8457;</sup>
+    				  </div>
+    				</li>
+    				)
+    		})
+      } 
+      </ul>
+    )
 };
 
 Weather.contextTypes = {
