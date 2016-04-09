@@ -50,7 +50,8 @@ Weather.contextTypes = {
   country: React.PropTypes.string,
   region: React.PropTypes.string,
   currently: React.PropTypes.object,
-  daily: React.PropTypes.object
+  daily: React.PropTypes.object,
+  fiveDays: React.PropTypes.array
 };
 
 module.exports = Weather;
