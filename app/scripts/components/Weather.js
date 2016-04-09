@@ -13,9 +13,27 @@ var styles = {
 		flexDirection: 'column'
 	},
 	listItem: {
-		padding: '0',
-		margin: '0',
-		maxHeight: '250px'
+		display: 'flex',
+	  justifyContent: 'space-between',
+	  alignItems: 'center',
+		marginBottom: '20px',
+    borderBottom:'1px solid #333',
+    height:'50px'
+	},
+	listChild_1: {
+	  display: 'flex',
+	  alignItems: 'center',
+	},
+	listChild_1_inner: {
+		display: 'flex',
+	  flexDirection: 'column',
+	  marginLeft: '10px'
+	},
+	icon:{
+		fontSize:"50px"
+	},
+	day:{
+		fontWeight: 'bold'
 	}
 }
 
