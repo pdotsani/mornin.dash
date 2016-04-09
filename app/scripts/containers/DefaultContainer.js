@@ -49,7 +49,8 @@ var DefaultContainer = React.createClass({
     country: React.PropTypes.string,
     region: React.PropTypes.string,
     currently: React.PropTypes.object,
-    daily: React.PropTypes.object
+    daily: React.PropTypes.object,
+    fiveDays: React.PropTypes.array
   },
 
   // Re-sets the time and date in one seccond intervals
@@ -75,7 +76,23 @@ var DefaultContainer = React.createClass({
      */
     var ipInfo;
     var weatherInfo;
-
+    
+    // process five day weather info
+    function fiveDayWeather(data){
+      data.data.splice(0,1)
+      data.data.splice(-2)
+      var format = data.data.map(function(ele,i){
+        var obj = {};
+        obj.day = Moment.unix(ele.time).format("dddd");
+        obj.minTemp = Math.floor(ele.apparentTemperatureMin);
+        obj.maxTemp = Math.floor(ele.apparentTemperatureMax );
+        var tempSummary = ele.icon.replace(/-/g,' ').split(' ');
+        obj.summary =  (tempSummary.length  > 1) ?
+          tempSummary.slice(0,2).join(' ') : tempSummary.join(' ');
+        return obj; 
+      })
+      return format; 
+    }
     // Step 2: Using ipinfo data, get weather data
     var getWeather = function(data) {
       ipInfo = data;
@@ -90,12 +107,14 @@ var DefaultContainer = React.createClass({
     // Step 3: Assign data to component state
     var sendData = function(data) {
       weatherInfo = data;
+      var fiveDays = fiveDayWeather(data.daily);
       this.setState({
         city: ipInfo.city,
         country: ipInfo.country,
         region: ipInfo.regionName,
         currently: weatherInfo.currently,
         daily: weatherInfo.daily,
+        fiveDays: fiveDays,
         isLoaded: true
       });
     }.bind(this);
@@ -132,7 +151,8 @@ var DefaultContainer = React.createClass({
               country={this.state.country}
               region={this.state.region}
               currently={this.state.currently}
-              daily={this.state.daily} />
+              daily={this.state.daily} 
+              fiveDays={this.state.fiveDays}/>
           </div>
         </div>
     )
