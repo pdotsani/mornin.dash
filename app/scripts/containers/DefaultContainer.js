@@ -5,7 +5,6 @@ var React = require('react');
 var Moment = require('moment');
 var Forecast = require('forecast.io-bluebird');
 var getIp = require('../services/getIp');
-var C = require('../constants/Constants');
 
 // Components
 var TimeComponent = require('../components/TimeComponent');
@@ -14,13 +13,13 @@ var Weather = require('../components/Weather');
 var Loading = require('../components/Loading');
 var Navbar = require('../components/Navbar');
 
-// Insert this into callback, possibly linked with a promise...
-var forecast = new Forecast({
-    key: C.FORECAST_IO_API
-});
-
 // Firebase
 var Firebase = require('firebase');
+
+// Constants (to be moved later...)
+var FIREBASE_URL = 'https://mornin-dash.firebaseIO.com';
+var FORECAST_IO = 'https://api.forecast.io/forecast/';
+var FORECAST_IO_API = 'e5d68455223bcd7cf113a56b985636d7';
 
 var styles = {
   containerStyles: {
@@ -80,7 +79,11 @@ var DefaultContainer = React.createClass({
      */
     var ipInfo;
     var weatherInfo;
-    var loginRef = new Firebase(C.FIREBASE_URL);
+    var authKey;
+    var loginRef = new Firebase(FIREBASE_URL);
+    var forecast = new Forecast({
+        key: FORECAST_IO_API
+    });
 
     // Step 2: Using ipinfo data, get weather data
     var getWeather = function(data) {
