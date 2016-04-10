@@ -3,8 +3,7 @@
 // Dependencies
 var React = require('react');
 var Moment = require('moment');
-var Forecast = require('forecast.io-bluebird');
-var getIp = require('../services/getIp');
+var getWeather = require('../services/getWeather');
 
 // Components
 var TimeComponent = require('../components/TimeComponent');
@@ -12,15 +11,6 @@ var DateComponent = require('../components/DateComponent');
 var Weather = require('../components/Weather');
 var Loading = require('../components/Loading');
 var Navbar = require('../components/Navbar');
-
-// Firebase
-var Firebase = require('firebase');
-
-// Constants (to be moved later...)
-var FIREBASE_URL = 'https://mornin-dash.firebaseIO.com';
-
-// Superagent + es6 Promise
-var Request = require('superagent');
 
 var styles = {
   containerStyles: {
@@ -74,68 +64,21 @@ var DefaultContainer = React.createClass({
 	},
 
   componentWillMount: function() {
-    /* 
-     *  4 Step process to get location and weather data
-     *  this state needs to be refactored into one api down the road...
-     */
-    var session;
-    var ipInfo;
-    var weatherInfo;
-    var ref = new Firebase(FIREBASE_URL);
-    var forecast;
-
-    // Step 2: Get location information
-    var getIpInfo = function() {
-      this.serverRequest = getIp
-        .now()
-        .then(getWeather)
-        .catch(function(err) {
-          console.warn(err);
+    this.serverRequest = getWeather
+      .now()
+      .then(function(data) {
+        this.setState({
+          city: data.city,
+          country: data.country,
+          region: data.region,
+          currently: data.currently,
+          daily: data.daily,
+          isLoaded: data.isLoaded
         });
-    }.bind(this);
-
-    // Step 3: Using ipinfo data, get weather data
-    var getWeather = function(data) {
-      ipInfo = data;
-      forecast
-        .fetch(data.lat, data.lon)
-        .then(sendData)
-        .catch(function(err) {
-          console.warn(err);
-        });
-    }
-
-    // Step 4: Assign data to component state
-    var sendData = function(data) {
-      weatherInfo = data;
-      this.setState({
-        city: ipInfo.city,
-        country: ipInfo.country,
-        region: ipInfo.regionName,
-        currently: weatherInfo.currently,
-        daily: weatherInfo.daily,
-        isLoaded: true
+      }.bind(this))
+      .catch(function(err) {
+        console.error(err);
       });
-      // Unauthorize Firebase Connection
-      ref.unauth();
-    }.bind(this);
-
-    // Step 1: Anonymous ref to firebase
-    ref.authAnonymously(function(error, cred) { 
-        if(error) console.error(error);
-        Request
-          .get(FIREBASE_URL + '/forecast/key.json')
-          .query({auth: cred.token})
-          .end(function(err, res) {
-            if(err) console.error(err);
-            forecast= new Forecast({
-              key: res.body
-            });
-          });
-        getIpInfo();
-      }, {
-        remember: "sessionOnly"
-    });
   },
 
   componentDidMount: function() {

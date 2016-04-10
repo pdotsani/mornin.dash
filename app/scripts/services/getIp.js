@@ -2,7 +2,6 @@
 
 var Request = require('superagent');
 var Promise = require('es6-promise').Promise; // jshint ignore:line
-var C = require('../constants/Constants');
 
 /**
  * Wrapper for calling ipApi.com json file
