@@ -18,8 +18,9 @@ var Firebase = require('firebase');
 
 // Constants (to be moved later...)
 var FIREBASE_URL = 'https://mornin-dash.firebaseIO.com';
-var FORECAST_IO = 'https://api.forecast.io/forecast/';
-var FORECAST_IO_API = 'e5d68455223bcd7cf113a56b985636d7';
+
+// Superagent + es6 Promise
+var Request = require('superagent');
 
 var styles = {
   containerStyles: {
@@ -74,18 +75,26 @@ var DefaultContainer = React.createClass({
 
   componentWillMount: function() {
     /* 
-     *  3 Step process to get location and weather data
+     *  4 Step process to get location and weather data
      *  this state needs to be refactored into one api down the road...
      */
+    var session;
     var ipInfo;
     var weatherInfo;
-    var authKey;
-    var loginRef = new Firebase(FIREBASE_URL);
-    var forecast = new Forecast({
-        key: FORECAST_IO_API
-    });
+    var ref = new Firebase(FIREBASE_URL);
+    var forecast;
 
-    // Step 2: Using ipinfo data, get weather data
+    // Step 2: Get location information
+    var getIpInfo = function() {
+      this.serverRequest = getIp
+        .now()
+        .then(getWeather)
+        .catch(function(err) {
+          console.warn(err);
+        });
+    }.bind(this);
+
+    // Step 3: Using ipinfo data, get weather data
     var getWeather = function(data) {
       ipInfo = data;
       forecast
@@ -96,7 +105,7 @@ var DefaultContainer = React.createClass({
         });
     }
 
-    // Step 3: Assign data to component state
+    // Step 4: Assign data to component state
     var sendData = function(data) {
       weatherInfo = data;
       this.setState({
@@ -107,22 +116,22 @@ var DefaultContainer = React.createClass({
         daily: weatherInfo.daily,
         isLoaded: true
       });
+      // Unauthorize Firebase Connection
+      ref.unauth();
     }.bind(this);
 
-    // Step 1: Get location information
-    var getIpInfo = function() {
-      this.serverRequest = getIp
-        .now()
-        .then(getWeather)
-        .catch(function(err) {
-          console.warn(err);
-        });
-    }.bind(this);
-
-    // Anonymous loginRef to firebase
-    loginRef.authAnonymously(function(error, auth) { 
+    // Step 1: Anonymous ref to firebase
+    ref.authAnonymously(function(error, cred) { 
         if(error) console.error(error);
-        console.log('auth:', auth);
+        Request
+          .get(FIREBASE_URL + '/forecast/key.json')
+          .query({auth: cred.token})
+          .end(function(err, res) {
+            if(err) console.error(err);
+            forecast= new Forecast({
+              key: res.body
+            });
+          });
         getIpInfo();
       }, {
         remember: "sessionOnly"
