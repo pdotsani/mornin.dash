@@ -3,9 +3,7 @@
 // Dependencies
 var React = require('react');
 var Moment = require('moment');
-var Forecast = require('forecast.io-bluebird');
-var getIp = require('../services/getIp');
-var C = require('../constants/Constants');
+var getWeather = require('../services/getWeather');
 
 // Components
 var TimeComponent = require('../components/TimeComponent');
@@ -13,10 +11,6 @@ var DateComponent = require('../components/DateComponent');
 var Weather = require('../components/Weather');
 var Loading = require('../components/Loading');
 var Navbar = require('../components/Navbar');
-
-var forecast = new Forecast({
-    key: C.FORECAST_IO_API
-});
 
 var styles = {
   containerStyles: {
@@ -70,42 +64,20 @@ var DefaultContainer = React.createClass({
 	},
 
   componentWillMount: function() {
-    /* 
-     *  3 Step process to get location and weather data 
-     */
-    var ipInfo;
-    var weatherInfo;
-
-    // Step 2: Using ipinfo data, get weather data
-    var getWeather = function(data) {
-      ipInfo = data;
-      forecast
-        .fetch(data.lat, data.lon)
-        .then(sendData)
-        .catch(function(err) {
-          console.warn(err);
-        });
-    }
-
-    // Step 3: Assign data to component state
-    var sendData = function(data) {
-      weatherInfo = data;
-      this.setState({
-        city: ipInfo.city,
-        country: ipInfo.country,
-        region: ipInfo.regionName,
-        currently: weatherInfo.currently,
-        daily: weatherInfo.daily,
-        isLoaded: true
-      });
-    }.bind(this);
-
-    // Step 1: Get location information
-    this.serverRequest = getIp
+    this.serverRequest = getWeather
       .now()
-      .then(getWeather)
+      .then(function(data) {
+        this.setState({
+          city: data.city,
+          country: data.country,
+          region: data.region,
+          currently: data.currently,
+          daily: data.daily,
+          isLoaded: data.isLoaded
+        });
+      }.bind(this))
       .catch(function(err) {
-        console.warn(err);
+        console.error(err);
       });
   },
 
