@@ -42,7 +42,13 @@ Finally, we can run the app locally by doing the following:
 
 - Run COORS toggle by clicking on the extension icon  
 
-- Start a local server by running `gulp watch` in your forked repo directory.
+- Start a local server by running `gulp watch` in your forked repo directory.  
+
+	> If you get the following error message:  
+	> ```
+	> module.js:338 throw err; ^ Error: Cannot find module 'browser-sync' at Function.> Module._resolveFilename (module.js:336:15)> 
+	> ```  
+	> Just install the unmet dependency by running `npm install browser-sync --save-dev`
 
 If you aren't redirected, open `http://localhost:3000/` in chrome.  
 
