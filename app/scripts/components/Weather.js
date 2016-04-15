@@ -2,7 +2,7 @@
 
 var React = require('react');
 var PropTypes = React.PropTypes;
-
+var FiveDaysForecast = require('./FiveDaysForecast')
 
 var styles = {
 	listDiv: {
@@ -15,20 +15,17 @@ var styles = {
 	listItem: {
 		padding: '0',
 		margin: '0',
-		maxHeight: '250px'
+    maxHeight: '250px',
+	  width:'300px'
 	}
 }
 
-function puke(obj) {
-	return <li style={styles.listItem}>{JSON.stringify(obj, 2, ' ')}</li>
-}
 
 function Weather(props) {
 	return (
 			<ul style={styles.listDiv}>
 				<li style={styles.listItem}>{props.city}, {props.country}, {props.region}</li>
-				{puke(props.currently)}
-				{puke(props.daily)}
+        <FiveDaysForecast fiveDays={props.fiveDays}/>
 			</ul>
 	)
 };
@@ -39,7 +36,8 @@ Weather.contextTypes = {
   country: React.PropTypes.string,
   region: React.PropTypes.string,
   currently: React.PropTypes.object,
-  daily: React.PropTypes.object
+  daily: React.PropTypes.object,
+	fiveDays: React.PropTypes.array
 };
 
 module.exports = Weather;
