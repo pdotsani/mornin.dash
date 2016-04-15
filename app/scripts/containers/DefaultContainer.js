@@ -73,6 +73,7 @@ var DefaultContainer = React.createClass({
           region: data.region,
           currently: data.currently,
           daily: data.daily,
+          fiveDays: data.fiveDays,
           isLoaded: data.isLoaded
         });
       }.bind(this))
@@ -99,12 +100,13 @@ var DefaultContainer = React.createClass({
               data={this.state.date} />
           </div>
           <div style={styles.weatherContainer}>
-            <Weather 
+            <Weather
               city={this.state.city}
               country={this.state.country}
               region={this.state.region}
               currently={this.state.currently}
-              daily={this.state.daily} />
+              daily={this.state.daily}
+              fiveDays={this.state.fiveDays} />
           </div>
         </div>
     )
