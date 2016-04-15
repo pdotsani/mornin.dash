@@ -5,6 +5,7 @@ var getIp = require('../services/getIp');
 var Firebase = require('firebase');
 var Request = require('superagent');
 var Promise = require('es6-promise').Promise; // jshint ignore:line
+var getFiveDays = require('./getFiveDays');
 var FIREBASE_URL = 'https://mornin-dash.firebaseIO.com';
 
 /**
@@ -18,11 +19,11 @@ var getWeather = {
     var forecast;
 
     return new Promise(function (resolve, reject) {
-      /* 
+      /*
        *  4 Step process to get location and weather data
-       * 
+       *
        */
-      
+
       // Step 2: Get location information
       var getIpInfo = function() {
         getIp
@@ -47,6 +48,7 @@ var getWeather = {
       // Step 4: Resolve promise and return data
       var sendData = function(data) {
         weatherInfo = data;
+        var fiveDays = getFiveDays(data);
         // Unauthorize Firebase Connection
         ref.unauth();
         resolve({
@@ -55,12 +57,13 @@ var getWeather = {
           region: ipInfo.regionName,
           currently: weatherInfo.currently,
           daily: weatherInfo.daily,
+          fiveDays: fiveDays,
           isLoaded: true
         });
       }.bind(this);
 
       // Step 1: Anonymous user auth to firebase
-      ref.authAnonymously(function(error, cred) { 
+      ref.authAnonymously(function(error, cred) {
           if(error) console.error(error);
           Request
             .get(FIREBASE_URL + '/forecast/key.json')
