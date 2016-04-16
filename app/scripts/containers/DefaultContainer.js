@@ -43,7 +43,8 @@ var DefaultContainer = React.createClass({
     country: React.PropTypes.string,
     region: React.PropTypes.string,
     currently: React.PropTypes.object,
-    daily: React.PropTypes.object
+    daily: React.PropTypes.object,
+    fiveDays: React.PropTypes.array
   },
 
   // Re-sets the time and date in one seccond intervals
