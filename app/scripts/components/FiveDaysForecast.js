@@ -50,7 +50,7 @@ function ForecastComponent(props) {
                 </span>
               </div>
               <div>
-                {ele.maxTemp} <sup>&#8457;</sup> / {ele.minTemp } <sup>&#8457;</sup>
+              {ele.maxTemp}&deg; / {ele.minTemp}&deg;
               </div>
             </li>
           )
