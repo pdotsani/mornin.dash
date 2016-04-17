@@ -11,31 +11,31 @@ var Moment = require('moment');
     thunder: 'icon-WEATHER_THUNDER',
     hail: 'icon-WEATHER_HAIL',
     tonardo: 'icon-WEATHER_TORNADO',
-    clear: 'icon-WEATHER_DAY',
     cloudy: 'icon-WEATHER_CLOUDY',
-    defaultIcon: 'icon-WEATHER_DAY'
+    'clear-day': 'icon-WEATHER_DAY',
+    'clear-night': 'icon-WEATHER_NIGHT',
+    'partly-cloudy-day': 'icon-WEATHER_PARTYCLOUDY-DAY',
+    'partly-cloudy-night': 'icon-WEATHER_PARTLYCLOUDYNIGHT',
+    day: 'icon-WEATHER_DAY',
+    night: 'icon-WEATHER_NIGHT'
   }
 
-  var IconNames = Object.keys(WeatherIcons)
 
   //make icons dynamic based on weather summary text 'str'
-  function mapIcons(str){
+  function mapIcons(str,time){
 
-    // incase of new summary text or
-    var defaultIcon = WeatherIcons.defaultIcon;
+    var icon = null;
 
-    var found = false;
-    var icon = defaultIcon;
-
-    IconNames.forEach(function (ele,i) {
-      if(found) return;
-      var reqex = new RegExp(ele,'i');
-      if(reqex.test(str)){
-        found = true;
-        icon = WeatherIcons[ele];
-      }
-    })
-
+    //  use icon description 'str' to find match in WeatherIcons obj
+    if(WeatherIcons.hasOwnProperty( str.toLowerCase())){
+      icon = WeatherIcons[str];
+    } else {
+       /*  if no match, set icon to day or night based on reqex
+           if reqex fails set icon to day     */
+      icon =  /day/i.test(str) ? WeatherIcons.day :
+              /night/i.test(str) ? WeatherIcons.night :
+              WeatherIcons.day ;
+    }
     return icon;
   }
 
