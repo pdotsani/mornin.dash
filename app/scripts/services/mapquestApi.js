@@ -8,17 +8,15 @@ var MAPQUEST_URL = 'http://www.mapquestapi.com/geocoding/v1';
 var ref = new Firebase(FIREBASE_URL);
 
 var Mapquest = {
-  geoReverse: function(lat, lon) {
+  geoReverse: function(key, locString) {
     return new Promise(function (resolve, reject) {
-      var locString = lat + ',' + lon;
-
       var reverseGeo = function(key) {
-        ref.unauth();
         return new Promise(function (resolve, reject) {
           Request
             .get(MAPQUEST_URL + '/reverse')
             .query({key: key})
             .query({callback: 'renderReverse'})
+            // locString = lat + ',' + lon;
             .query({location: locString})
             .end(function(err, res) {
               if(err) reject(err);
@@ -26,38 +24,22 @@ var Mapquest = {
             });
         });
       }
-
-      ref.authAnonymously(function(error, cred) {
-        if(error) reject(error);
-        Request
-          .get(FIREBASE_URL + '/mapquest/key.json')
-          .query({auth: cred.token})
-          .end(function(err, res) {
-            if(err) reject(err);
-            var p = Promise.resolve(reverseGeo(res.body));
-            p.then(function(data) {
-              resolve(fin);
-            });
-          }, {
-            remember: "sessionOnly"
-          });
-        
-      });
     });
   },
 
-  geoRegular: function(location) {
+  geoRegular: function(key, location) {
     return new Promise(function (resolve, reject) {
       var regularGeo = function(key) {
-        ref.unauth();
         Request
           .get(MAPQUEST_URL + '/address')
           .query({key: key})
+          // location = '1095 something street city, state zip'
           .query({location: location})
           .query({callback: 'renderOptions'})
           .query({inFormat: 'kvp'})
           .query({outFormat: 'json'})
-          .end(function(req, res) {
+          .end(function(err, res) {
+            if(err) reject(err);
             resolve({
               lat: res.results[0].latLng.lat,
               lon: res.results[0].latLng.lon,
@@ -66,19 +48,6 @@ var Mapquest = {
             });
           });
       }
-
-      ref.authAnonymously(function(error, cred) {
-        if(error) reject(error);
-        Request
-          .get(FIREBASE_URL + '/mapquest/key.json')
-          .query({auth: cred.token})
-          .end(function(req, res) {
-            if(err) reject(err);
-            regularGeo(res.body);
-          }, {
-            remember: "sessionOnly"
-          });
-      });
     });
   }
 };

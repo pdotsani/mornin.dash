@@ -1,7 +1,6 @@
 'use strict';
 
 var Forecast = require('forecast.io-bluebird');
-var getIp = require('../services/getIp');
 var Firebase = require('firebase');
 var Request = require('superagent');
 var Promise = require('es6-promise').Promise; // jshint ignore:line

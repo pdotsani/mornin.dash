@@ -9,7 +9,6 @@ var getWeather = require('../services/getWeather');
 var TimeComponent = require('../components/TimeComponent');
 var DateComponent = require('../components/DateComponent');
 var Weather = require('../components/Weather');
-var Loading = require('../components/Loading');
 var Navbar = require('../components/Navbar');
 
 var styles = {
@@ -90,9 +89,7 @@ var DefaultContainer = React.createClass({
 
   render: function() {
     return (
-      this.state.isLoaded === false
-      ? <Loading />
-      : <div style={styles.containerStyles}>
+      <div style={styles.containerStyles}>
           <Navbar />
           <div style={styles.dateTimeContainer}>
             <TimeComponent

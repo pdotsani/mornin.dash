@@ -3,12 +3,10 @@
 var React = require('react');
 var PropTypes = React.PropTypes;
 var Router = require('react-router');
-// disable for now...
-// var Transition = require('react-addons-css-transition-group'); 
-var _ = require('lodash');
+var Mapquest = require('../services/mapquestApi');
 
 var styles = {
-	loadingContainer: {
+	setupContainer: {
 		background: 'transparent'
 	},
 	loadingHeader: {
@@ -19,54 +17,48 @@ var styles = {
 	}
 };
 
-var Loading = React.createClass({
+var Setup = React.createClass({
 
 	contextTypes: {
-	  router: React.PropTypes.object.isRequired,
-	  message: React.PropTypes.array,
-	  time: React.PropTypes.number
-	},
-
-	renderMessage: function() {
-		return _.forEachRight(this.state.message, function(letter, key) {
-			return 	<span key={key}>letter</span>			
-		});
-	},
-
-	zoomLetter: function() {
-		var index = Math.floor(Math.random()*(this.length-1));
-		var luckySpan = this.messageArr[index];
-		luckySpan.style.fontWeight='100';
-		luckySpan.style.fontWeight='10000';
+	  router: React.PropTypes.object.isRequired
 	},
 
 	componentWillMount: function() {
-		this.setState({
-			message: 'loading'.split(''),
-			time: 100
-		});
+
 	},
 
 	componentDidMount: function() {
-		this.header = document.body.getElementsByTagName('h1')[0];
-		this.messageArr = this.header.childNodes;
-		this.length = this.messageArr.length;
-		this.interval = setInterval(this.zoomLetter, this.state.time);
+		if(navigator.geolocation) {
+			navigator
+				.geolocation
+				.getCurrentPosition(function(position) {
+					var lat = position.coords.latitude;
+					var lon = position.coords.longitude;
+					this.serverRequest = Mapquest
+						.geoReverse(lat, lon)
+						.then(function(data) {
+							console.log('MapquestSvc:', data);
+						}.bind(this))
+						.catch(function(err) {
+							console.error(err);
+						});
+				});
+		} else {
+
+		}
 	},
 
 	componentWillUnmount: function() {
-		clearInterval(this.interval);
+		
 	},
 
 	render: function() {
 		return (
-			<div style={styles.loadingContainer}>
-				<h1 style={styles.loadingHeader}>
-					{this.renderMessage()}
-				</h1>
+			<div style={styles.setupContainer}>
+				<input type='text' style={styles.loadingHeader} />
 			</div>	
 		)
 	}
 });
 
-module.exports = Loading;
+module.exports = Setup;
