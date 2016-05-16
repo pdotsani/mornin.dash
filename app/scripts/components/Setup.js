@@ -10,13 +10,23 @@ var styles = {
 		textAlign: 'center'
 	},
 	setupContainer: {
+	  textAlign: 'center',
 		background: 'transparent'
 	},
-	loadingHeader: {
+	formHeader: {
+		margin: '250px 0 0 0',
+		fontSize: '4em'
+	},
+	inputHeader: {
 		fontSize: '6em',
-		margin: '200px',
-		transition: 'fontWeight 700',
-	  textAlign: 'center',
+		margin: '0 200px',
+		transition: 'fontWeight 700'
+	},
+	confirmButton: {
+		fontSize: '3em',
+		background: 'transparent',
+		borderRadius: '25px',
+		margin: '0 15px'
 	}
 };
 
@@ -28,7 +38,7 @@ var Setup = React.createClass({
 
 	getInitialState: function() {
 		return {
-			geo_enabled: true     
+			geo_enabled: true
 		}
 	},
 
@@ -42,11 +52,9 @@ var Setup = React.createClass({
 				.getCurrentPosition(function(position) {
 					var lat = position.coords.latitude;
 					var lon = position.coords.longitude;
-					console.log(position);
 					this.serverRequest = getLocation
 						.reverse(lat, lon)
 						.then(function(data) {
-							console.log("RESULT: ", data);
 							this.setState({
 								city: data.city,
 								country: data.country,
@@ -62,24 +70,21 @@ var Setup = React.createClass({
 				}.bind(this));
 		} else {
 			this.setState({geo_enabled: false});
-			// Cue get geolocation form
 		}
 	},
 
-	regularGeoLocation: function() {
+	regularGeoLocation: function(event) {
+		var location = this.refs.locstring.value;
 		this.serverRequest = getLocation
 			.regular(location)
 			.then(function(data) {
-				console.log(data);
-				/*
 				this.setState({
-					city: // data.city,
-					country: // data.country,
-					county: // data.county,
-					lat: // data.lat,
-					lon: // data.lon
+					city: data.city,
+					country: data.country,
+					county: data.county,
+					lat: data.lat,
+					lon: data.lon
 				});
-				*/
 			}.bind(this))
 			.catch(function(err) {
 				console.error(err);
@@ -92,16 +97,29 @@ var Setup = React.createClass({
 
 	render: function() {
 		return (
-			this.state.geo_enabled == true
+			this.state.geo_enabled  == true
 			?<div style={styles.confirmLocation}>
-				<p>Confirm your location...</p>
+				<h2>Confirm your location...</h2>
 				<h1>{this.state.city} {this.state.state}</h1>
 				<h1>{this.state.county}</h1>
+				<button
+					type='button'
+					style={styles.confirmButton}
+					>Yes!</button>
+				<button
+					type='button'
+					style={styles.confirmButton}
+					>Nope!</button>
 			</div>
-			:<div style={styles.setupContainer}>
-					<p>Enter your address...</p>
-					<input type='text' style={styles.loadingHeader} />
-			</div>	
+			:<form 
+				style={styles.setupContainer}
+				onSubmit={this.regularGeoLocation}>
+				<h2 style={styles.formHeader}>Enter your address...</h2>
+				<input 
+					type='text' 
+					style={styles.inputHeader} 
+					ref='locstring'/>
+			</form>
 		)
 	}
 });

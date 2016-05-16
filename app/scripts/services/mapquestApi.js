@@ -31,24 +31,25 @@ var Mapquest = {
 
   geoRegular: function(key, location) {
     return new Promise(function (resolve, reject) {
-      var regularGeo = function(key) {
-        Request
-          .get(MAPQUEST_URL + '/address')
-          .query({key: key})
-          // location = '1095 something street city, state zip'
-          .query({location: location})
-          .query({inFormat: 'kvp'})
-          .query({outFormat: 'json'})
-          .end(function(err, res) {
-            if(err) reject(err);
-            resolve({
-              lat: res.results[0].latLng.lat,
-              lon: res.results[0].latLng.lon,
-              city: res.results[0].adminArea5,
-              region: res.results[0].adminArea3
-            });
+      Request
+        .get(MAPQUEST_URL + '/address')
+        .query({key: key})
+        // location = '1095 something street city, state zip'
+        .query({location: location})
+        .query({inFormat: 'kvp'})
+        .query({outFormat: 'json'})
+        .end(function(err, res) {
+          if(err) reject(err);
+          var location = res.body.results[0].locations[0];
+          resolve({
+            lat: location.displayLatLng.lat,
+            lon: location.displayLatLng.lng,
+            country: location.adminArea1,
+            state: location.adminArea3,
+            county: location.adminArea4,
+            city: location.adminArea5
           });
-      }
+        });
     });
   }
 };

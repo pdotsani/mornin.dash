@@ -21,7 +21,7 @@ var getLocation = {
             Mapquest
               .geoRegular(res.body, locinfo)
               .then(function(data) {
-                console.log("Resolved: ", data);
+                resolve(data);
               });
           }, {
             remember: "sessionOnly"
@@ -31,7 +31,6 @@ var getLocation = {
 	},
 	reverse: function(lat, lon) {
 		var locinfo = lat + ',' + lon;
-    console.log("reverse");
 		return new Promise(function (resolve, reject) {
 			ref.authAnonymously(function(error, cred) {
         if(error) reject(error);
