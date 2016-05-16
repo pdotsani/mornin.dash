@@ -2,9 +2,10 @@
 
 var Request = require('superagent');
 var Promise = require('es6-promise').Promise; // jshint ignore:line
+var Firebase = require('firebase');
 var FIREBASE_URL = 'https://mornin-dash.firebaseIO.com';
 var ref = new Firebase(FIREBASE_URL);
-var MapquestApi = require('./mapquestApi');
+var Mapquest = require('./mapquestApi');
 
 
 var getLocation = {
@@ -17,15 +18,20 @@ var getLocation = {
           .query({auth: cred.token})
           .end(function(err, res) {
             if(err) reject(err);
-            // MapquestApi.geoRegular(res.body, locinfo)                                                
+            Mapquest
+              .geoRegular(res.body, locinfo)
+              .then(function(data) {
+                console.log("Resolved: ", data);
+              });
           }, {
             remember: "sessionOnly"
           });
       });
 		});
 	},
-	reverse: function(lat, long) {
-		locinfo = lat + ',' + lon;
+	reverse: function(lat, lon) {
+		var locinfo = lat + ',' + lon;
+    console.log("reverse");
 		return new Promise(function (resolve, reject) {
 			ref.authAnonymously(function(error, cred) {
         if(error) reject(error);
@@ -34,7 +40,13 @@ var getLocation = {
           .query({auth: cred.token})
           .end(function(err, res) {
             if(err) reject(err);
-            // MapquestApi.geoReverse(res.body, locinfo)                                                
+            Mapquest
+              .geoReverse(res.body, locinfo)
+              .then(function(data) {
+                data.lat = lat;
+                data.lon = lon;
+                resolve(data);
+              });
           }, {
             remember: "sessionOnly"
           });

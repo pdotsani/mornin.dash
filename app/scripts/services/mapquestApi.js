@@ -10,20 +10,22 @@ var ref = new Firebase(FIREBASE_URL);
 var Mapquest = {
   geoReverse: function(key, locString) {
     return new Promise(function (resolve, reject) {
-      var reverseGeo = function(key) {
-        return new Promise(function (resolve, reject) {
-          Request
-            .get(MAPQUEST_URL + '/reverse')
-            .query({key: key})
-            .query({callback: 'renderReverse'})
-            // locString = lat + ',' + lon;
-            .query({location: locString})
-            .end(function(err, res) {
-              if(err) reject(err);
-              resolve(res);
-            });
+      Request
+        .get(MAPQUEST_URL + '/reverse')
+        .query({key: key})
+        // locString = lat + ',' + lon;
+        .query({location: locString})
+        .query({outFormat: "json"})
+        .end(function(err, res) {
+          if(err) reject(err);
+          var location = res.body.results[0].locations[0];
+          resolve({
+            country: location.adminArea1,
+            state: location.adminArea3,
+            county: location.adminArea4,
+            city: location.adminArea5
+          });
         });
-      }
     });
   },
 
@@ -35,7 +37,6 @@ var Mapquest = {
           .query({key: key})
           // location = '1095 something street city, state zip'
           .query({location: location})
-          .query({callback: 'renderOptions'})
           .query({inFormat: 'kvp'})
           .query({outFormat: 'json'})
           .end(function(err, res) {

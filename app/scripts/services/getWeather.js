@@ -11,7 +11,7 @@ var FIREBASE_URL = 'https://mornin-dash.firebaseIO.com';
  * Wrapper for calling weather data
  */
 var getWeather = {
-  now: function() {
+  now: function(coords) {
     var ipInfo;
     var weatherInfo;
     var ref = new Firebase(FIREBASE_URL);
@@ -19,32 +19,21 @@ var getWeather = {
 
     return new Promise(function (resolve, reject) {
       /*
-       *  4 Step process to get location and weather data
+       *  3 Step process to get location and weather data
        *
        */
 
-      // Step 2: Get location information
-      var getIpInfo = function() {
-        getIp
-          .now()
-          .then(getWeather)
-          .catch(function(err) {
-            console.error(err);
-          });
-      }.bind(this);
-
-      // Step 3: Using ipinfo data, get weather data
-      var getWeather = function(data) {
-        ipInfo = data;
+      // Step 2: Using mapquest Geolocation API info, get forecast
+      var getWeather = function() {
         forecast
-          .fetch(data.lat, data.lon)
+          .fetch(coords.lat, coords.lon)
           .then(sendData)
           .catch(function(err) {
             console.error(err);
           });
       }
 
-      // Step 4: Resolve promise and return data
+      // Step 3: Resolve promise and return data
       var sendData = function(data) {
         weatherInfo = data;
         var fiveDays = getFiveDays(data);
@@ -73,7 +62,7 @@ var getWeather = {
                 key: res.body
               });
             });
-          getIpInfo();
+          getWeather();
         }, {
           remember: "sessionOnly"
       });
