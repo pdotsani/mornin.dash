@@ -6,27 +6,23 @@ var Request = require('superagent');
 var Promise = require('es6-promise').Promise; // jshint ignore:line
 var getFiveDays = require('./getFiveDays');
 var FIREBASE_URL = 'https://mornin-dash.firebaseIO.com';
+var ref = new Firebase(FIREBASE_URL);
 
 /**
  * Wrapper for calling weather data
  */
 var getWeather = {
-  now: function(coords) {
-    var ipInfo;
-    var weatherInfo;
-    var ref = new Firebase(FIREBASE_URL);
-    var forecast;
-
+  now: function(lat, lon) {
     return new Promise(function (resolve, reject) {
       /*
        *  3 Step process to get location and weather data
-       *
        */
 
       // Step 2: Using mapquest Geolocation API info, get forecast
-      var getWeather = function() {
-        forecast
-          .fetch(coords.lat, coords.lon)
+      var getWeather = function(key) {
+        var fio = new Forecast({ key: key });
+        fio
+          .fetch(lat, lon)
           .then(sendData)
           .catch(function(err) {
             console.error(err);
@@ -35,18 +31,13 @@ var getWeather = {
 
       // Step 3: Resolve promise and return data
       var sendData = function(data) {
-        weatherInfo = data;
         var fiveDays = getFiveDays(data);
         // Unauthorize Firebase Connection
         ref.unauth();
         resolve({
-          city: ipInfo.city,
-          country: ipInfo.country,
-          region: ipInfo.regionName,
-          currently: weatherInfo.currently,
-          daily: weatherInfo.daily,
-          fiveDays: fiveDays,
-          isLoaded: true
+          currently: data.currently,
+          daily: data.daily,
+          fiveDays: fiveDays
         });
       }.bind(this);
 
@@ -58,11 +49,8 @@ var getWeather = {
             .query({auth: cred.token})
             .end(function(err, res) {
               if(err) console.error(err);
-              forecast = new Forecast({
-                key: res.body
-              });
+              getWeather(res.body);
             });
-          getWeather();
         }, {
           remember: "sessionOnly"
       });

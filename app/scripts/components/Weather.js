@@ -11,20 +11,14 @@ var styles = {
 		margin:'0',
 		display: 'flex',
 		flexDirection: 'column'
-	},
-	listItem: {
-		padding: '0',
-		margin: '0',
-    maxHeight: '250px',
-	  width:'300px'
 	}
 }
 
 
 function Weather(props) {
+	console.log("Weather comp: ",props);
 	return (
 			<ul style={styles.listDiv}>
-				<li style={styles.listItem}>{props.city}, {props.country}, {props.region}</li>
         <FiveDaysForecast fiveDays={props.fiveDays}/>
 			</ul>
 	)

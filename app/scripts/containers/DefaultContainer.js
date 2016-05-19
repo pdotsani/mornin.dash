@@ -4,6 +4,7 @@
 var React = require('react');
 var Moment = require('moment');
 var getWeather = require('../services/getWeather');
+var Store = require('store');
 
 // Components
 var TimeComponent = require('../components/TimeComponent');
@@ -40,6 +41,7 @@ var DefaultContainer = React.createClass({
     router: React.PropTypes.object.isRequired,
     city: React.PropTypes.string,
     country: React.PropTypes.string,
+    state: React.PropTypes.string,
     region: React.PropTypes.string,
     currently: React.PropTypes.object,
     daily: React.PropTypes.object,
@@ -56,25 +58,28 @@ var DefaultContainer = React.createClass({
   },
 
 	getInitialState: function() {
+    var setup = Store.get('setup');
     return {
-      isLoaded: false,
       time: Moment().format("dddd, MMMM Do YYYY"),
-      date: Moment().format("h:mm:ss a")
+      date: Moment().format("h:mm:ss a"),
+      city: setup.city,
+      country: setup.country,
+      county: setup.region,
+      state: setup.state,
+      lat: setup.lat,
+      lon: setup.lon
     }
-	},
+  },
 
   componentWillMount: function() {
     this.serverRequest = getWeather
-      .now()
+      .now(this.state.lat, this.state.lon)
       .then(function(data) {
+        console.log('getWeather: ', data);
         this.setState({
-          city: data.city,
-          country: data.country,
-          region: data.region,
           currently: data.currently,
           daily: data.daily,
-          fiveDays: data.fiveDays,
-          isLoaded: data.isLoaded
+          fiveDays: data.fiveDays
         });
       }.bind(this))
       .catch(function(err) {
@@ -96,12 +101,11 @@ var DefaultContainer = React.createClass({
               data={this.state.time} />
             <DateComponent
               data={this.state.date} />
+            <h2>{this.state.city}, {this.state.country}</h2>
+            <h2>{this.state.county} {this.state.state}</h2>
           </div>
           <div style={styles.weatherContainer}>
             <Weather
-              city={this.state.city}
-              country={this.state.country}
-              region={this.state.region}
               currently={this.state.currently}
               daily={this.state.daily}
               fiveDays={this.state.fiveDays} />
