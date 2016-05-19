@@ -67,7 +67,8 @@ var DefaultContainer = React.createClass({
       county: setup.region,
       state: setup.state,
       lat: setup.lat,
-      lon: setup.lon
+      lon: setup.lon,
+      gotWeather: false
     }
   },
 
@@ -79,7 +80,8 @@ var DefaultContainer = React.createClass({
         this.setState({
           currently: data.currently,
           daily: data.daily,
-          fiveDays: data.fiveDays
+          fiveDays: data.fiveDays,
+          gotWeather: true
         });
       }.bind(this))
       .catch(function(err) {
@@ -104,12 +106,16 @@ var DefaultContainer = React.createClass({
             <h2>{this.state.city}, {this.state.country}</h2>
             <h2>{this.state.county} {this.state.state}</h2>
           </div>
-          <div style={styles.weatherContainer}>
-            <Weather
-              currently={this.state.currently}
-              daily={this.state.daily}
-              fiveDays={this.state.fiveDays} />
-          </div>
+          {
+            this.state.gotWeather === true
+            ?<div style={styles.weatherContainer}>
+                <Weather
+                  currently={this.state.currently}
+                  daily={this.state.daily}
+                  fiveDays={this.state.fiveDays} />
+            </div>
+            :<p>loading...</p>
+          }
         </div>
     )
   }
