@@ -12,13 +12,14 @@ var hashHistory = ReactRouter.hashHistory;
 
 // Route Components / containers
 var Main = require('../components/Main');
-var Loading = require('../components/Loading');
+var Setup = require('../components/Setup');
 var DefaultContainer = require('../containers/DefaultContainer');
 
 var routes = (
 	<Router history={hashHistory}>
 		<Route path='/' component={Main}>
-			<IndexRoute component={DefaultContainer} />
+			<IndexRoute component={Setup} />
+			<Route path='/default' component={DefaultContainer} />
 		</Route>
 	</Router>
 );

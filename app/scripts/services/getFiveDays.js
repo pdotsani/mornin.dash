@@ -42,7 +42,7 @@ var Moment = require('moment');
 
   function fiveDayWeather(data){
      var weather = data.daily.data;
-
+     console.log("weather:", weather);
     weather.splice(-3) // cut 8 days of weatherinfo to 5
      var format = weather.map(function(ele,i){
         var obj = {};

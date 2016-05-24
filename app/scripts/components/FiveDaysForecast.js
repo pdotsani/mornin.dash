@@ -36,6 +36,7 @@ var styles = {
 }
 
 function ForecastComponent(props) {
+  console.log("ForecastComponent: ", props);
   return (
     <ul style={styles.listDiv}>
       {
