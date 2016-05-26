@@ -10,7 +10,6 @@ var Store = require('store');
 var TimeComponent = require('../components/TimeComponent');
 var DateComponent = require('../components/DateComponent');
 var Weather = require('../components/Weather');
-var Navbar = require('../components/Navbar');
 
 var styles = {
   containerStyles: {
@@ -97,7 +96,6 @@ var DefaultContainer = React.createClass({
   render: function() {
     return (
       <div style={styles.containerStyles}>
-          <Navbar />
           <div style={styles.dateTimeContainer}>
             <TimeComponent
               data={this.state.time} />
