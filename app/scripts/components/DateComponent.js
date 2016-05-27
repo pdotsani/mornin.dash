@@ -5,8 +5,7 @@ var React = require('react');
 var styles = {
 	date: {
 		margin: '0',
-		fontSize: '6em',
-		color: 'grey'
+		fontSize: '6em'
 	}
 };
 

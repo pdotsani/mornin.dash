@@ -5,8 +5,8 @@ var React = require('react');
 var styles = {
 	time: {
 		margin: '0',
-		fontSize: '9em',
-		color: 'black'
+		fontSize: '7em',
+		opacity: '0.75'
 	}
 };
 
