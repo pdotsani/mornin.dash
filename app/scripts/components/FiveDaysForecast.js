@@ -4,55 +4,45 @@ var React = require('react');
 
 var styles = {
     listDiv: {
-        listStyle:'none',
-        padding:'0',
-        margin:'0',
-        display: 'flex',
-        flexDirection: 'column'
+      listStyle:'none',
+      padding: '5px 0 0 90px',
+      margin:'0',
+      display: 'flex',
+      flexDirection: 'row'
     },
     listItem: {
-        display: 'flex',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-        marginBottom: '20px',
-    borderBottom:'1px solid #333',
-    height:'50px'
-    },
-    listChild_1: {
       display: 'flex',
+      padding: '0 5px',
       alignItems: 'center',
+      flexDirection: 'column'
     },
-    listChild_1_inner: {
-        display: 'flex',
-      flexDirection: 'column',
-      marginLeft: '10px'
+    icon: {
+      fontSize: '6em',
+      opacity: '0.25'
     },
-    icon:{
-        fontSize:"50px"
+    day: {
+      fontSize: '1em',
+      position: 'relative',
+      top: '3px',
+      opacity: '0.75'
     },
-    day:{
-        fontWeight: 'bold'
+    temp: {
+      fontSize: '4.5em',
+      fontWeight: 'bold',
+      opacity: '0.75'
     }
 }
 
 function ForecastComponent(props) {
-  console.log("ForecastComponent: ", props);
   return (
     <ul style={styles.listDiv}>
       {
         props.fiveDays.map(function(ele,i){
           return (
             <li style={styles.listItem} key={i}>
-              <div style={styles.listChild_1}>
-                <span style={styles.icon} className={ele.icon}> </span>
-                <span style={styles.listChild_1_inner}>
-                  <span style={styles.day}> {ele.day}</span>
-                  <span> {ele.summary }</span>
-                </span>
-              </div>
-              <div>
-              {ele.maxTemp}&deg; / {ele.minTemp}&deg;
-              </div>
+              <div style={styles.day}>{ele.day}</div>
+              <div style={styles.icon} className={ele.icon}></div>
+              <div>{ele.maxTemp}&deg; / {ele.minTemp}&deg;</div>
             </li>
           )
         })

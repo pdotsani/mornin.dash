@@ -10,17 +10,14 @@ var styles = {
 		padding:'0',
 		margin:'0',
 		display: 'flex',
-		flexDirection: 'column'
+		flexDirection: 'row'
 	}
 }
 
 
 function Weather(props) {
-	console.log("Weather comp: ",props);
 	return (
-			<ul style={styles.listDiv}>
-        <FiveDaysForecast fiveDays={props.fiveDays}/>
-			</ul>
+  	<FiveDaysForecast fiveDays={props.fiveDays}/>
 	)
 };
 
