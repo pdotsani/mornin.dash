@@ -32,7 +32,7 @@ var styles = {
 	}
 };
 
-var Setup = React.createClass({
+var SetupContainer = React.createClass({
 
 	contextTypes: {
 	  router: React.PropTypes.object.isRequired
@@ -147,4 +147,4 @@ var Setup = React.createClass({
 	}
 });
 
-module.exports = Setup;
+module.exports = SetupContainer;
