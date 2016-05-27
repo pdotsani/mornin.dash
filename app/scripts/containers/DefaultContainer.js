@@ -14,23 +14,40 @@ var Weather = require('../components/Weather');
 var styles = {
   containerStyles: {
     display: 'inline-flex',
-    flexDirection: 'row',
+    flexDirection: 'column',
     alignContent: 'center',
     alignItems: 'flex-start',
-    paddingLeft:'24px',
-    paddingRight:'24px',
+    paddingLeft: '24px',
+    paddingRight: '24px',
     paddingBottom: '25px'
   },
   dateTimeContainer: {
-    paddingTop: '80px',
-    minWidth:'750px',
-    display:'flex',
-    flexDirection:'column'
+    paddingTop: '175px',
+    minWidth: '750px',
+    display: 'flex',
+    flexDirection: 'row'
   },
-  weatherContainer: {
-    maxWidth:'350px',
-    display:'flex',
-    flexDirection:'column'
+  dayStyles: {
+    height: 'auto',
+    display: 'flex',
+    maxWidth: '125px'
+  },
+  noDay: {
+    display: 'flex',
+    flexDirection: 'column'
+  },
+  dayStylesHeader: {
+    margin: '0px',
+    padding: '0px',
+    fontSize: '6em',
+    transform: 'rotate(-90deg)',
+    height: '264px',
+    opacity: '.25'
+  },
+  locationStyles: {
+    margin: '0px',
+    padding: '5px 0 0 0',
+    opacity: '0.2'
   }
 }
 
@@ -52,15 +69,16 @@ var DefaultContainer = React.createClass({
   tick: function() {
     this.setState({
       time: Moment().format("h:mm:ss a"),
-      date: Moment().format("dddd, MMMM Do YYYY")
+      date: Moment().format("MMMM Do YYYY"),
+      day: Moment().format("dddd")
     })
   },
 
 	getInitialState: function() {
     var setup = Store.get('setup');
     return {
-      time: Moment().format("dddd, MMMM Do YYYY"),
-      date: Moment().format("h:mm:ss a"),
+      time: Moment().format("h:mm:ss a"),
+      date: Moment().format("dddd, MMMM Do YYYY"),
       city: setup.city,
       country: setup.country,
       county: setup.region,
@@ -75,7 +93,6 @@ var DefaultContainer = React.createClass({
     this.serverRequest = getWeather
       .now(this.state.lat, this.state.lon)
       .then(function(data) {
-        console.log('getWeather: ', data);
         this.setState({
           currently: data.currently,
           daily: data.daily,
@@ -96,25 +113,34 @@ var DefaultContainer = React.createClass({
   render: function() {
     return (
       <div style={styles.containerStyles}>
-          <div style={styles.dateTimeContainer}>
+        <div style={styles.dateTimeContainer}>
+          <div style={styles.dayStyles}>
+            <h1 style={styles.dayStylesHeader}>
+              {this.state.day}
+            </h1>
+          </div>
+          <div style={styles.noDay}>
             <TimeComponent
               data={this.state.time} />
             <DateComponent
               data={this.state.date} />
-            <h2>{this.state.city}, {this.state.country}</h2>
-            <h2>{this.state.county} {this.state.state}</h2>
-          </div>
-          {
-            this.state.gotWeather === true
-            ?<div style={styles.weatherContainer}>
-                <Weather
-                  currently={this.state.currently}
-                  daily={this.state.daily}
-                  fiveDays={this.state.fiveDays} />
-            </div>
-            :<p>loading...</p>
-          }
+            <h2 style={styles.locationStyles}>
+              {this.state.city},
+              &nbsp;{this.state.state} 
+              &nbsp;{this.state.county} 
+              &nbsp;{this.state.country}
+            </h2>
+          </div> 
         </div>
+        {
+          this.state.gotWeather === true
+          ?<Weather
+            currently={this.state.currently}
+            daily={this.state.daily}
+            fiveDays={this.state.fiveDays} />
+          :<p>loading...</p>
+        }
+      </div>
     )
   }
 });
