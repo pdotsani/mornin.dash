@@ -4,8 +4,14 @@
 var React = require('react');
 
 var styles = {
+    container: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center'
+    },
+
     icon: {
-      fontSize: '6em',
+      fontSize: '4em',
       opacity: '0.25'
     },
     day: {
@@ -26,7 +32,7 @@ var ForecastCardComponent = React.createClass({
   render: function(){
     var data = this.props.data;
     return (
-      <div>
+      <div style={styles.container}>
         <div style={styles.day}>
           {data.day}
         </div>

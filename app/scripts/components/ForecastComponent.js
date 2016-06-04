@@ -9,11 +9,11 @@ var ForecastCardComponent = require('./ForecastCardComponent')
 
 var styles = {
 	listDiv: {
-		listStyle:'none',
 		padding:'0',
 		margin:'0',
 		display: 'flex',
-		flexDirection: 'row'
+		width: '80%',
+		justifyContent: 'space-between'
 	}
 }
 
@@ -35,7 +35,7 @@ var ForecastComponent = React.createClass({
   }
 	return (
 			<div style={styles.listDiv}>
-			{forecastCard}
+				{forecastCard}
 			</div>
 		)
 	}
