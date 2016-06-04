@@ -12,6 +12,7 @@ var TimeComponent = require('../components/TimeComponent');
 var DateComponent = require('../components/DateComponent');
 var ForecastComponent = require('../components/ForecastComponent');
 var LoadingComponent = require('../components/LoadingComponent');
+var DayComponent = require('../components/DayComponent');
 
 //page layout
 var styles = {
