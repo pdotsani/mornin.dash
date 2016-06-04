@@ -5,27 +5,13 @@ var React = require('react');
 var Moment = require('moment');
 var getWeather = require('../services/getWeather');
 var Store = require('store');
-
-// Components
-var LocationComponent = require('../components/LocationComponent');
-var TimeComponent = require('../components/TimeComponent');
-var DateComponent = require('../components/DateComponent');
-var ForecastComponent = require('../components/ForecastComponent');
 var LoadingComponent = require('../components/LoadingComponent');
-var DayComponent = require('../components/DayComponent');
 
-//page layout
-var styles = {
-  containerStyles: {
-    display: 'inline-flex',
-    flexDirection: 'column',
-    alignContent: 'center',
-    alignItems: 'flex-start',
-    paddingLeft: '24px',
-    paddingRight: '24px',
-    paddingBottom: '25px'
-  }
-}
+
+//skins
+var DefaultSkin = require('../skins/default');
+var SlimSkin = require('../skins/slim');
+
 
 var DefaultContainer = React.createClass({
 
@@ -38,12 +24,11 @@ var DefaultContainer = React.createClass({
     daily: React.PropTypes.object,
   },
 
-
 	getInitialState: function() {
     var setup = Store.get('setup');
     return {
       time: Moment().format("h:mm:ss a"),
-      date: Moment().format("dddd, MMMM Do"),
+      date: Moment().format("MMMM Do YYYY"),
       day: Moment().format("dddd"),
       locations: {
         city: setup.city,
@@ -73,19 +58,9 @@ var DefaultContainer = React.createClass({
 
   render: function() {
     return (
-      <div style={styles.containerStyles}>
-        <TimeComponent
-        data={this.state.time} />
-        <DateComponent
-        data={this.state.date} />
-        <LocationComponent data={this.state.locations} />
-       {
-        (this.state.gotWeather) ?
-            <ForecastComponent
-            data={this.state.allWeather} />
-        : <LoadingComponent />
-      }
-      </div>
+      (this.state.gotWeather) ?
+        <DefaultSkin data={this.state}/>
+      : <LoadingComponent />
     )
   }
 });
