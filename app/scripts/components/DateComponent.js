@@ -1,5 +1,6 @@
 'use strict';
 
+//Dependencies
 var React = require('react');
 
 var styles = {
@@ -9,10 +10,16 @@ var styles = {
 	}
 };
 
-function DateComponent(info) {
-	return (
-		<h3 style={styles.date}>{info.data}</h3>
-	)
-}
+
+var DateComponent = React.createClass({
+
+	render: function () {
+		var date = this.props.data;
+		return (
+			<h3 style={styles.date}>{date}</h3>
+		)
+	}
+})
+
 
 module.exports = DateComponent;

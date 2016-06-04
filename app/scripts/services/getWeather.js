@@ -1,10 +1,10 @@
 'use strict';
 
+//Dependencies
 var Forecast = require('forecast.io-bluebird');
 var Firebase = require('firebase');
 var Request = require('superagent');
 var Promise = require('es6-promise').Promise; // jshint ignore:line
-var getFiveDays = require('./getFiveDays');
 var FIREBASE_URL = 'https://mornin-dash.firebaseIO.com';
 var ref = new Firebase(FIREBASE_URL);
 
@@ -31,13 +31,12 @@ var getWeather = {
 
       // Step 3: Resolve promise and return data
       var sendData = function(data) {
-        var fiveDays = getFiveDays(data);
+
         // Unauthorize Firebase Connection
         ref.unauth();
         resolve({
-          currently: data.currently,
-          daily: data.daily,
-          fiveDays: fiveDays
+          current: data.currently,
+          daily: data.daily
         });
       }.bind(this);
 
